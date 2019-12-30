@@ -4,21 +4,20 @@
 
 ## Features
 
-*users should be able to view company departments
+*users should be able to view company_employee_details
 
-### Features 1: To create a company-Department table
+### Features 1: Deatils_of_Employees
 
 ```sql
 
 
 create table departments
 ( 
-     d_id number ,   --primary key
+     d_id number ,         --PRIMARY KEY
      department_name varchar2(20) not null,
      manager_id varchar2(20) not null,
      Department_location varchar2(20),
      constraint dept_pk primary key(d_id)
-      --constraint manager_id_uq unique (manager_id)
 );
 
 insert into departments values(1,'sec_it',1,'chennai');
