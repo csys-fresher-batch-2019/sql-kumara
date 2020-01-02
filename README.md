@@ -44,28 +44,28 @@ drop table departments;
 
 ```
 
-### Features 1: Deatils_of_Employees
+### Features 1: List_Deatils_of_Employees
 
 ```sql
 
 create table employee_details
 (
     e_id number,	          --PRIMARY KEY 
-    department_id number,	--FOREIGN KEY
+    department_id number,	  --FOREIGN KEY
     employee_name varchar2(55),
-	gender varchar2(20) not null,
+     gender varchar2(20) not null,
     birth_date date not null,
     joining_date date,
     pan_card varchar2(20) NOT NULL,
-    adhar_num  number,
+    adhar_num  number,                  --UNIQUE KEY
     driving_license_num varchar2(20), 	--UNIQUE KEY
-    employee_mobnum number,
+    employee_mobnum number,             --UNIQUE KEY
     constraint emp_dept_pk primary key(e_id),
     constraint emp_adhar unique(adhar_num),
     constraint emp_dl_uq unique(driving_license_num),
     constraint emp_mobno_uq unique(employee_mobnum),
     constraint emp_fk foreign key (department_id) references departments(d_id),
-	constraint emp_gender check(gender in('male','female','others')),
+    constraint emp_gender check(gender in('male','female','others')),
     constraint proof_chk check (adhar_num is not null or driving_license_num is not null) 
 );
 
@@ -100,7 +100,7 @@ select * from employee_details;
 
 CREATE TABLE STATES(
 	
-		STATES_ID number not null ,
+		STATES_ID number not null ,               --PRIMARY KEY
 		STATE_NAME varchar2(40),
 		CONSTRAINT STATE_ID_PK PRIMARY KEY(STATES_ID),
 		CONSTRAINT STATE_NAME_UK UNIQUE(STATE_NAME));
@@ -113,10 +113,21 @@ INSERT INTO STATES (STATES_ID,STATE_NAME) VALUES (5,'NEPAL');
 
 select * from states;
 
+| states_id | states_name |
+|-----------|-------------|
+| 1         | tamilnadu   |
+| 2         | kerala      |
+| 3         | andra       |
+| 4         | bihar       |
+| 5         | nepal       |
+|           |             |
+
+
+
 
 create table employee_addresses(
-		address_id number,
-		emp_id number not null ,
+		address_id number,                       --PRIMARY KEY
+		emp_id number not null ,                 --FOREIGN KEY
 		address_type varchar2(25),
 		address_line1 varchar2(25) not null,
 		address_line2 varchar2(25),
@@ -163,6 +174,8 @@ insert into employee_addresses(address_id,emp_id,address_type,address_line1,addr
     
     ```
 ### Feauture: queries
+
+
     
     select * from states s
     right join employee_addresses e
@@ -174,7 +187,7 @@ insert into employee_addresses(address_id,emp_id,address_type,address_line1,addr
     (select country_id from countries c where s.states_id=c.country_id)
     from states s;
 	
-	
+    
     
     
     
