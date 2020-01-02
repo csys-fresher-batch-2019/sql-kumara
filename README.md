@@ -26,7 +26,7 @@ insert into departments(d_id,department_name,manager_id,department_location) val
 insert into departments(d_id,department_name,manager_id,department_location) values (4,'pchh_product',1,'chennai');
 insert into departments(d_id,department_name,manager_id,department_location) values (5,'pchh_testing',4,'chennai');
 insert into departments(d_id,department_name,manager_id,department_location) values (6,'pchh_services',2,'chennai');
-
+insert into departments(d_id,department_name,manager_id,department_location) values (7,'pchh_networking','null');
 
 select * from departments;
 drop table departments;
@@ -69,12 +69,12 @@ create table employee_details
     constraint proof_chk check (adhar_num is not null or driving_license_num is not null) 
 );
 
-insert into employee_details values(1,1,'anbuselvam','male',to_date('03-03-1997','dd-mm-yyyy'),to_date('03-01-2019','dd-mm-yyyy'),'234567891','','WA25728567','9585758494');
-insert into employee_details values(2,2,'vinayak','male','22-OCT-98','03-NOV-19','142648797 ','453782827378','1347537WA8','9835353664');
-insert into employee_details values(3,3,'vijaykumar','male','12-APR-1996','03-NOV-2019','124367898','242627227388','12145EA5368','9242525643');
-insert into employee_details values(4,4,'ramya','female','11-MAR-1998','03-MAR-2019','145678930','353767388992','','8356342526');
-insert into employee_details values(5,5,'velan','male','16-JAN-1998','04-NOV-2019','156372890','345362728299','574838393PS','8134556266');
-insert into employee_details values(6,1,'alex','male','12-NOV-1997','04-NOV-2019','123456781','252627288899','46373738DW','9562727278');
+insert into employee_details values(1,2,'anbuselvam','male',to_date('03-03-1997','dd-mm-yyyy'),to_date('03-01-2019','dd-mm-yyyy'),'234567891','','WA25728567','9585758494');
+insert into employee_details values(2,4,'vinayak','male','22-OCT-98','03-NOV-19','142648797 ','453782827378','1347537WA8','9835353664');
+insert into employee_details values(3,1,'vijaykumar','male','12-APR-1996','03-NOV-2019','124367898','242627227388','12145EA5368','9242525643');
+insert into employee_details values(4,2,'ramya','female','11-MAR-1998','03-MAR-2019','145678930','353767388992','','8356342526');
+insert into employee_details values(5,1,'velan','male','16-JAN-1998','04-NOV-2019','156372890','345362728299','574838393PS','8134556266');
+insert into employee_details values(6,3,'alex','male','12-NOV-1997','04-NOV-2019','123456781','252627288899','46373738DW','9562727278');
 
 
 
@@ -177,16 +177,56 @@ insert into employee_addresses(address_id,emp_id,address_type,address_line1,addr
 
 
     
-    select * from states s
-    right join employee_addresses e
-    on s.states_id=e.state_id
-    right join countries c
-    on c.country_id=s.country_id;
-    
-    select country_id,state_name,
-    (select country_id from countries c where s.states_id=c.country_id)
-    from states s;
+--Display manager_name, manager_id, conut(department) under each manager
+  
+select e.employee_name ,d.manager_id,count(department_name) as department_count 
+from departments d 
+join employee_details e 
+on d.manager_id=e.e_id 
+group by d.manager_id,e.employee_name;
+
+
+
+--display dept with out location 
+select department_name as department
+from departments 
+where department_location = 'null';
 	
+--display dept_name,dept_id , conut(emp in dept)	
+select d.d_id,d.department_name, count(e.department_id)
+from departments d
+left join employee_details e
+on d.d_id=e.department_id
+group by d.d_id,d.department_name;  
+    
+    
+--display department name which has atleast one employee name starts with 'A'    
+  
+select d.department_name
+from departments d 
+join employee_details e 
+on d.d_id=e.department_id 
+where e.employee_name like 'a%' 
+group by (e.department_id,d.department_name); 
+
+--display employee detail whose joining date is "dd/mm/yyyy"
+select d.department_name,e.employee_name,e.birth_date,e.joining_date,e.pan_card,e.adhar_num
+from employee_details e 
+inner join departments d 
+on e.department_id=d.d_id
+where e.joining_date='03/mar/2019';
+
+
+select d.department_name,e.employee_name,e.birth_date,e.joining_date,e.pan_card,e.adhar_num,e.employee_mobnum
+from employee_details e 
+right join departments d 
+on e.department_id=d.d_id
+where extract('year',joining_date);
+
+--list the department ID and name of all the departments where no employee is working
+SELECT * FROM departments 
+WHERE d_id 
+NOT IN (select department_id FROM employee_details);
     
     
     
