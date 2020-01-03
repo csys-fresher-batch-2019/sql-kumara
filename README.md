@@ -4,7 +4,7 @@
 
 ## Features
 
-*users should be able to view company_employee_details
+*complete database of company_employee_details
 
 ### Features 1: Deatils_of_Employee_department
 
