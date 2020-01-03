@@ -276,18 +276,18 @@ NOT IN (select department_id FROM employee_details);                      --(no 
 
 --employee_who belong to 'kerala' using triple join
 
-select e.e_id,e.employee_name,e.birth_date,e.joining_date,e.pan_card,s.states_id,s.state_name
+select e.e_id,e.employee_name,e.birth_date,e.joining_date,e.pan_card,s.states_id,s.state_name,ad.city_name
 from employee_details e 
 left join employee_addresses ad
 on e.e_id=ad.emp_id 
 left join states s 
 on s.states_id=ad.state_id
-where s.state_name='KERALA';
+where s.state_name='KERALA';                            --(kerala)
 
-| e_id | employye_name |  birth_date | joining_date |  pan_card | states_id | state_name |
-|:----:|:-------------:|:-----------:|:------------:|:---------:|:--------:|:----------:|
-|   2  |    vinayak    |  22-OCT-98  |   03-NOV-19  | 142648797 |     2    |   kerala   |
-|   4  |     ramya     | 11-MAR-1998 |  03-MAR-2019 | 145678930 |     2    |   kerala   |
+| e_id | employye_name |  birth_date | joining_date |  pan_card | states_id| state_name |  city_name   |
+|:----:|:-------------:|:-----------:|:------------:|:---------:|:--------:|:----------:|:-------------:
+|   2  |    vinayak    |  22-OCT-98  |   03-NOV-19  | 142648797 |     2    |   kerala   |   cochin     |
+|   4  |     ramya     | 11-MAR-1998 |  03-MAR-2019 | 145678930 |     2    |   kerala   |   cochin     |
 
 
 
