@@ -172,10 +172,10 @@ insert into employee_addresses(address_id,emp_id,address_type,address_line1,addr
 |      6     |    5   |   temporary  | #123,kn street |      null     |  chennai  |  600112  |     1    |
 |      7     |    6   |    others    |  #13,nn street |      null     |   kadapa  |  100012  |     3    |
     
-    ```
-### Feauture: queries
+  ```
+### feautures: Queries
 
-
+```sql
     
 --Display manager_name, manager_id, conut(department) under each manager
   
@@ -185,12 +185,26 @@ join employee_details e
 on d.manager_id=e.e_id 
 group by d.manager_id,e.employee_name;
 
+| EMPLOYEE_NAME | MANAGER_ID | DEPARTMENT_COUNT |
+|---------------|------------|------------------|
+| anbuselvam    | 1          | 3                |
+| vinayak       | 2          | 2                |
+| vijaykumar    | 3          | 1                |
+| ramya         | 4          | 1                |
 
+
+/********************************************************/
 
 --display dept with out location 
 select department_name as department
 from departments 
 where department_location = 'null';
+
+| department      |
+|-----------------|
+| pchh_networking |
+
+/********************************************************/
 	
 --display dept_name,dept_id , conut(emp in dept)	
 select d.d_id,d.department_name, count(e.department_id)
@@ -198,7 +212,19 @@ from departments d
 left join employee_details e
 on d.d_id=e.department_id
 group by d.d_id,d.department_name;  
+
+
+| D_ID | DEPARTMENT_NAME | COUNT(E.DEPARTMENT_ID) |
+|:----:|:---------------:|:----------------------:|
+|   1  |     pchh_it     |            2           |
+|   2  |  pchh_marketing |            1           |
+|   4  |   pchh_product  |            1           |
+|   5  |   pchh_testing  |            1           |
+|   3  | pchh_salesforce |            1           |
+|   6  |  pchh_services  |            0           |
+|   8  | pchh_networking |            0           |
     
+ /*******************************************************/
     
 --display department name which has atleast one employee name starts with 'A'    
   
@@ -209,6 +235,14 @@ on d.d_id=e.department_id
 where e.employee_name like 'a%' 
 group by (e.department_id,d.department_name); 
 
+| DEPARTMENT_NAME |
+|:---------------:|
+| pchh_it         |
+
+
+
+/************************************************************/
+
 --display employee detail whose joining date is "dd/mm/yyyy"
 select d.department_name,e.employee_name,e.birth_date,e.joining_date,e.pan_card,e.adhar_num
 from employee_details e 
@@ -216,18 +250,37 @@ inner join departments d
 on e.department_id=d.d_id
 where e.joining_date='03/mar/2019';
 
+| DEPARTMENT_NAME | EEMPLOYEE_NAME | BIRTH_DATE | JOINING_DATE | PAN_CARD  | ADHAR_NUM    |
+|-----------------|----------------|------------|--------------|-----------|--------------|
+| pchh_product    | ramya          | 11-MAR-98  | 03-MAR-19    | 145678930 | 353767388992 |
 
-select d.department_name,e.employee_name,e.birth_date,e.joining_date,e.pan_card,e.adhar_num,e.employee_mobnum
-from employee_details e 
-right join departments d 
-on e.department_id=d.d_id
-where extract('year',joining_date);
+/******************************************************/
+
+
 
 --list the department ID and name of all the departments where no employee is working
 SELECT * FROM departments 
 WHERE d_id 
 NOT IN (select department_id FROM employee_details);
     
+    
+| D_ID |  DEPARTMENT_NAME | MANAGER_ID | DEPARTMENT_LOCATION |
+|:----:|:----------------:|:----------:|:-------------------:|
+|   6  |  pchh_services   |      2     |       chennai       |
+|   8  |  pchh_networking |      1     |          -          |
+|   9  | pchh_networking  |      2     |         null        |
+
+```
+
+/*******************************************/
+
+### feautures: EXTRACTING TABLE
+   SALARY_TABLE
+   RELATIONSHIP   ->   CARE_OF_DEATILS
+   JOB_ROLE
+   JOB_HISTORY
+   
+
     
     
     
