@@ -182,7 +182,7 @@ insert into employee_addresses(address_id,emp_id,address_type,address_line1,addr
 select e.employee_name ,d.manager_id,count(department_name) as department_count 
 from departments d 
 join employee_details e 
-on d.manager_id=e.e_id 
+on d.manager_id=e.e_id                                             --(find employee ->manager_id,(?) department)
 group by d.manager_id,e.employee_name;
 
 | EMPLOYEE_NAME | MANAGER_ID | DEPARTMENT_COUNT |
@@ -198,7 +198,7 @@ group by d.manager_id,e.employee_name;
 --display dept with out location 
 select department_name as department
 from departments 
-where department_location = 'null';
+where department_location = 'null';                
 
 | department      |
 |-----------------|
@@ -206,11 +206,12 @@ where department_location = 'null';
 
 /********************************************************/
 	
---display dept_name,dept_id , conut(emp in dept)	
+--display dept_name,dept_id , conut(emp in dept)
+
 select d.d_id,d.department_name, count(e.department_id)
-from departments d
+from departments d                                        
 left join employee_details e
-on d.d_id=e.department_id
+on d.d_id=e.department_id                                           --(employee count in department)
 group by d.d_id,d.department_name;  
 
 
@@ -230,7 +231,7 @@ group by d.d_id,d.department_name;
   
 select d.department_name
 from departments d 
-join employee_details e 
+join employee_details e                                       --(employee_name in a starting -> dept_name)
 on d.d_id=e.department_id 
 where e.employee_name like 'a%' 
 group by (e.department_id,d.department_name); 
@@ -247,7 +248,7 @@ group by (e.department_id,d.department_name);
 select d.department_name,e.employee_name,e.birth_date,e.joining_date,e.pan_card,e.adhar_num
 from employee_details e 
 inner join departments d 
-on e.department_id=d.d_id
+on e.department_id=d.d_id                                                  --(who join those fix date)
 where e.joining_date='03/mar/2019';
 
 | DEPARTMENT_NAME | EEMPLOYEE_NAME | BIRTH_DATE | JOINING_DATE | PAN_CARD  | ADHAR_NUM    |
@@ -261,7 +262,7 @@ where e.joining_date='03/mar/2019';
 --list the department ID and name of all the departments where no employee is working
 SELECT * FROM departments 
 WHERE d_id 
-NOT IN (select department_id FROM employee_details);
+NOT IN (select department_id FROM employee_details);                      --(no employee in department)
     
     
 | D_ID |  DEPARTMENT_NAME | MANAGER_ID | DEPARTMENT_LOCATION |
