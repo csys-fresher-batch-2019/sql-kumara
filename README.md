@@ -282,12 +282,13 @@ left join employee_addresses ad
 on e.e_id=ad.emp_id 
 left join states s 
 on s.states_id=ad.state_id
-where s.state_name='kerala';
+where s.state_name='KERALA';
 
 | e_id | employye_name |  birth_date | joining_date |  pan_card | states_id | state_name |
 |:----:|:-------------:|:-----------:|:------------:|:---------:|:--------:|:----------:|
 |   2  |    vinayak    |  22-OCT-98  |   03-NOV-19  | 142648797 |     2    |   kerala   |
 |   4  |     ramya     | 11-MAR-1998 |  03-MAR-2019 | 145678930 |     2    |   kerala   |
+
 
 
 
