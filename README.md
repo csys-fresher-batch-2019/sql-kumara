@@ -276,9 +276,14 @@ NOT IN (select department_id FROM employee_details);                      --(no 
 /*******************************************/
 
 ### feautures: EXTRACTING TABLE
+```sql
+
    SALARY_TABLE
+   
    RELATIONSHIP   ->   CARE_OF_DEATILS
+   
    JOB_ROLE
+   
    JOB_HISTORY
    
 
