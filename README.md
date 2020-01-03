@@ -15,7 +15,7 @@ create table departments
 ( 
      d_id number ,                                       --primary key
      department_name varchar2(20) not null,
-     manager_id varchar2(20) not null,
+     manager_id varchar2(20) ,
      department_location varchar2(20),
      constraint dept_pk primary key(d_id),
      constraint manager_id_uq unique (manager_id,department_name) 
@@ -25,8 +25,8 @@ insert into departments(d_id,department_name,manager_id,department_location) val
 insert into departments(d_id,department_name,manager_id,department_location) values (3,'pchh_salesforce',3,'chennai');
 insert into departments(d_id,department_name,manager_id,department_location) values (4,'pchh_product',1,'chennai');
 insert into departments(d_id,department_name,manager_id,department_location) values (5,'pchh_testing',4,'chennai');
-insert into departments(d_id,department_name,manager_id,department_location) values (6,'pchh_services',2,'chennai');
-insert into departments(d_id,department_name,manager_id,department_location) values (7,'pchh_networking','null');
+insert into departments(d_id,department_name,manager_id,department_location) values (6,'pchh_services',1,'chennai');
+insert into departments(d_id,department_name,department_location) values (7,'pchh_networking','null');
 
 select * from departments;
 drop table departments;
@@ -37,8 +37,8 @@ drop table departments;
 |       1       | pchh_it         |      1     |       chennai       |
 |       2       | pchh_marketing  |      2     |       chennai       |
 |       3       | pchh_salesforce |      3     |       chennai       |
-|       4       | pchh_product    |      4     |       chennai       |
-|       5       | pchh_testing    |      5     |       chennai       |
+|       4       | pchh_product    |      1     |       chennai       |
+|       5       | pchh_testing    |      4     |       chennai       |
 |       6       | pchh_service    |      1     |       chennai       |
 |       7       | pchh_networking |      -     |          -          |
 
@@ -72,7 +72,7 @@ create table employee_details
 insert into employee_details values(1,2,'anbuselvam','male',to_date('03-03-1997','dd-mm-yyyy'),to_date('03-01-2019','dd-mm-yyyy'),'234567891','','WA25728567','9585758494');
 insert into employee_details values(2,4,'vinayak','male','22-OCT-98','03-NOV-19','142648797 ','453782827378','1347537WA8','9835353664');
 insert into employee_details values(3,1,'vijaykumar','male','12-APR-1996','03-NOV-2019','124367898','242627227388','12145EA5368','9242525643');
-insert into employee_details values(4,2,'ramya','female','11-MAR-1998','03-MAR-2019','145678930','353767388992','','8356342526');
+insert into employee_details values(4,1,'ramya','female','11-MAR-1998','03-MAR-2019','145678930','353767388992','','8356342526');
 insert into employee_details values(5,1,'velan','male','16-JAN-1998','04-NOV-2019','156372890','345362728299','574838393PS','8134556266');
 insert into employee_details values(6,3,'alex','male','12-NOV-1997','04-NOV-2019','123456781','252627288899','46373738DW','9562727278');
 
@@ -188,7 +188,7 @@ group by d.manager_id,e.employee_name;
 | EMPLOYEE_NAME | MANAGER_ID | DEPARTMENT_COUNT |
 |---------------|------------|------------------|
 | anbuselvam    | 1          | 3                |
-| vinayak       | 2          | 2                |
+| vinayak       | 2          | 1                |
 | vijaykumar    | 3          | 1                |
 | ramya         | 4          | 1                |
 
@@ -202,6 +202,8 @@ where department_location = 'null';
 
 | department      |
 |-----------------|
+| pchh_testing    |
+| pchh_services   |
 | pchh_networking |
 
 /********************************************************/
@@ -217,13 +219,13 @@ group by d.d_id,d.department_name;
 
 | D_ID | DEPARTMENT_NAME | COUNT(E.DEPARTMENT_ID) |
 |:----:|:---------------:|:----------------------:|
-|   1  |     pchh_it     |            2           |
+|   1  |     pchh_it     |            3           |
 |   2  |  pchh_marketing |            1           |
-|   4  |   pchh_product  |            1           |
-|   5  |   pchh_testing  |            1           |
 |   3  | pchh_salesforce |            1           |
+|   4  |   pchh_product  |            1           |
+|   5  |   pchh_testing  |            0           |
 |   6  |  pchh_services  |            0           |
-|   8  | pchh_networking |            0           |
+|   7  | pchh_networking |            0           |
     
  /*******************************************************/
     
@@ -267,9 +269,10 @@ NOT IN (select department_id FROM employee_details);                      --(no 
     
 | D_ID |  DEPARTMENT_NAME | MANAGER_ID | DEPARTMENT_LOCATION |
 |:----:|:----------------:|:----------:|:-------------------:|
-|   6  |  pchh_services   |      2     |       chennai       |
-|   8  |  pchh_networking |      1     |          -          |
-|   9  | pchh_networking  |      2     |         null        |
+|   5  | pchh_testing     |      4     |       chennai       |
+|   6  |  pchh_services   |      1     |       chennai       |
+|   7  |  pchh_networking |      -     |          -          |
+
 
 --employee_who belong to 'kerala' using triple join
 
