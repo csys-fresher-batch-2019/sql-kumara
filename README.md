@@ -202,8 +202,6 @@ where department_location = 'null';
 
 | department      |
 |-----------------|
-| pchh_testing    |
-| pchh_services   |
 | pchh_networking |
 
 /********************************************************/
