@@ -304,6 +304,7 @@ where s.state_name='KERALA';                            --(kerala)
    JOB_ROLE
    
    JOB_HISTORY
+   ;l;;;'
    
 
     
