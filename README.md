@@ -204,7 +204,7 @@ END calculate_tax;
    
     
  ```
- ### feautures: logintable
+ ### features: logintable
  ```sql
  create table Manager(
 manager_id number not null,
@@ -221,7 +221,7 @@ create SEQUENCE Update_sequence start with 1 INCREMENT by 1;
 
 ```
     
-### feautures: Queries
+### features: Queries
 
 ```sql
     
