@@ -201,11 +201,11 @@ BEGIN
       RETURN tax;
       
 END calculate_tax;
-    
+   
     
  ```
  ### feautures: logintable
- 
+ ```sql
  create table Manager(
 manager_id number not null,
 manager_name varchar2(44) unique,
@@ -221,7 +221,6 @@ create SEQUENCE Update_sequence start with 1 INCREMENT by 1;
 
 ```
     
- ```
 ### feautures: Queries
 
 ```sql
