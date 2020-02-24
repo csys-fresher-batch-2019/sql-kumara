@@ -68,6 +68,8 @@ create table employee_details
     constraint emp_gender check(gender in('male','female','others')),
     constraint proof_chk check (adhar_num is not null or driving_license_num is not null) 
 );
+create sequence employee_adds start with 14 increment by 1;
+
 
 insert into employee_details values(1,2,'anbuselvam','male',to_date('03-03-1997','dd-mm-yyyy'),to_date('03-01-2019','dd-mm-yyyy'),'234567891','','WA25728567','9585758494');
 insert into employee_details values(2,4,'vinayak','male','22-OCT-98','03-NOV-19','142648797 ','453782827378','1347537WA8','9835353664');
@@ -187,15 +189,39 @@ insert into employee_addresses(address_id,emp_id,address_type,address_line1,addr
   YEAR number(4),
   constraint e_id_fk foreign key (e_id) references employee_details(e_id)
 );
+    CREATE OR REPLACE FUNCTION calculate_tax(e_eId NUMBER)
+   RETURN NUMBER
+   IS tax NUMBER(10,2);
+ 
+BEGIN 
+   tax := 0;
+   
+      SELECT (sum(salary)*10)/100 into tax FROM person_salary_details WHERE e_id = e_eId;
+            
+      RETURN tax;
+      
+END calculate_tax;
     
     
+ ```
+ ### feautures: logintable
+ 
+ create table Manager(
+manager_id number not null,
+manager_name varchar2(44) unique,
+email varchar2(55) unique,
+dob date,
+mob_num number,
+pass_word varchar2(55),
+gender varchar2(22)
+--constraint m_fk manager_id references employee_details(manager_id)
+
+);
+create SEQUENCE Update_sequence start with 1 INCREMENT by 1;
+
+```
     
-    
-    
-    
-    
-    
-  ```
+ ```
 ### feautures: Queries
 
 ```sql
