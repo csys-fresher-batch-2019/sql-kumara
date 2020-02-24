@@ -171,6 +171,29 @@ insert into employee_addresses(address_id,emp_id,address_type,address_line1,addr
 |      5     |    4   |   permanant  |  #15,rn street |      null     |   kollam  |  200012  |     1    |
 |      6     |    5   |   temporary  | #123,kn street |      null     |  chennai  |  600112  |     1    |
 |      7     |    6   |    others    |  #13,nn street |      null     |   kadapa  |  100012  |     3    |
+   
+   ```
+   ### Features: salary table
+    
+   ```Sql
+   
+   CREATE TABLE person_salary_details
+(
+  SALARY_ID number(5) primary key not null,
+  e_id   NUMBER ,
+     --CONSTRAINT in_emp REFERENCES hr.employees(employee_id)_ID number(5) references employee_details(e_id),
+  SALARY number(8),
+  MONTH varchar2(9),
+  YEAR number(4),
+  constraint e_id_fk foreign key (e_id) references employee_details(e_id)
+);
+    
+    
+    
+    
+    
+    
+    
     
   ```
 ### feautures: Queries
