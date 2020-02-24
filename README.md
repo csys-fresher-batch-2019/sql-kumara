@@ -1,6 +1,6 @@
 # Employee Management system
 
-*https://Pachak-emp-details-systems.in
+*https://emp-details-systems.in
 
 ## Features
 
